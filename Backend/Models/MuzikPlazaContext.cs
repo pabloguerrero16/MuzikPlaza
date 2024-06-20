@@ -6,7 +6,7 @@ namespace Backend.Models
     {
         public MuzikPlazaContext(DbContextOptions<MuzikPlazaContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Artist> Artists { get; set; }
@@ -15,6 +15,9 @@ namespace Backend.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductGenre> ProductGenres { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<ProfilePicture> ProfilePictures {get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,6 +53,17 @@ namespace Backend.Models
 
             modelBuilder.Entity<Format>()
                 .ToTable("_Format");
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.ProfilePicture)
+                .WithOne(p => p.User)
+                .HasForeignKey<ProfilePicture>(p => p.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Role)
+                .WithMany()
+                .HasForeignKey(u => u.RoleID);
         }
     }
 }

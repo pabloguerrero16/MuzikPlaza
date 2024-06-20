@@ -94,7 +94,7 @@ namespace Backend.Controllers
 
         // Update Product => api/Product/id
         [HttpPut("{id}")]
-        public async Task<IActionResult> updateProduct(int id, [FromForm] ProductDTO dto)
+        public async Task<IActionResult> updateProduct(int id, ProductDTO dto)
         {
             if (id <= 0)
             {
@@ -206,7 +206,7 @@ namespace Backend.Controllers
 
         // Add Product => api/Product
         [HttpPost]
-        public async Task<ActionResult<Product>> addProduct([FromForm] ProductDTO dto)
+        public async Task<ActionResult<Product>> addProduct(ProductDTO dto)
         {
             try
             {
