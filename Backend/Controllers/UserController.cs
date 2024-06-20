@@ -151,20 +151,22 @@ namespace Backend.Controllers
                             if (oldProfilePicture != null)
                             {
                                 DeletePicture(oldProfilePicture.ImagePath);
-                                _context.ProfilePictures.Remove(oldProfilePicture);
+                                oldProfilePicture.ImagePath = imagePath;
+                                _context.ProfilePictures.Update(oldProfilePicture);
                             }
                         }
-
-                        var profilePicture = new ProfilePicture
+                        else
                         {
-                            UserID = user.UserID,
-                            ImagePath = imagePath
-                        };
+                            var profilePicture = new ProfilePicture
+                            {
+                                UserID = user.UserID,
+                                ImagePath = imagePath
+                            };
 
-                        _context.ProfilePictures.Add(profilePicture);
-                        await _context.SaveChangesAsync();
-
-                        user.ProfilePictureID = profilePicture.ProfilePictureID;
+                            _context.ProfilePictures.Add(profilePicture);
+                            await _context.SaveChangesAsync();
+                            user.ProfilePictureID = profilePicture.ProfilePictureID;
+                        }
                     }
                 }
 
@@ -197,6 +199,10 @@ namespace Backend.Controllers
                 {
                     DeletePicture(user.ProfilePicture.ImagePath);
                     _context.ProfilePictures.Remove(user.ProfilePicture);
+                } 
+                else
+                {
+                    _context.Users.Remove(user);
                 }
 
                 await _context.SaveChangesAsync();
