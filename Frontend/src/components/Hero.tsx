@@ -9,6 +9,7 @@ const Hero = () => {
           Search for vinyls, CDs, or cassettes...
         </p>
       </div>
+      <hr className="lg:mx-24 md:mx-24" />
     </div>
   );
 };
