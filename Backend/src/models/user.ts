@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   rol: { type: String, required: true },
+  purchases: [{ type: mongoose.Schema.Types.ObjectId, ref: "Purchase" }],
 });
 
 userSchema.pre("save", async function (next) {

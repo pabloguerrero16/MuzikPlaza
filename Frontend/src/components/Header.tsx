@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { IoMenu, IoCartOutline, IoLogInOutline } from "react-icons/io5";
-import { CiLogout } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
 import clsx from "clsx";
 import { useAppContext } from "../contexts/AppContext";

@@ -3,8 +3,11 @@ import { useState } from "react";
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
+import AddProduct from "./pages/AddProduct";
+import { useAppContext } from "./contexts/AppContext";
 
 function App() {
+  const { isLoggedIn } = useAppContext();
   const [isSideMenuOpen] = useState(false);
   return (
     <Router>
@@ -41,6 +44,17 @@ function App() {
             </Layout>
           }
         />
+
+        {isLoggedIn && (
+          <Route
+            path="/add-product"
+            element={
+              <Layout>
+                <AddProduct />
+              </Layout>
+            }
+          />
+        )}
       </Routes>
     </Router>
   );

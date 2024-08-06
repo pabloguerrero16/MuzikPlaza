@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
-import { check, validationResult } from "express-validator";
+import { check, cookie, validationResult } from "express-validator";
 import User from "../models/user";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import verifyToken from "../middleware/auth";
+import { verifyToken } from "../middleware/auth";
 
 const router = express.Router();
 
@@ -45,7 +45,7 @@ router.post(
         maxAge: 86400000,
       });
 
-      res.status(200).json({ userId: user._id });
+      res.status(200).json({ userId: user._id, Cookie: cookie });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Something went wrong" });

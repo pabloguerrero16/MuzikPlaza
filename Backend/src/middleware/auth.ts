@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express-serve-static-core";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import User from "../models/user";
 
 declare global {
   namespace Express {
@@ -24,4 +25,23 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default verifyToken;
+const checkAdmin = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    if (user.rol != "Admin") {
+      return res
+        .status(403)
+        .json({ message: "You don't have permission to visit this page" });
+    }
+
+    next();
+  } catch (error) {
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export { verifyToken, checkAdmin };

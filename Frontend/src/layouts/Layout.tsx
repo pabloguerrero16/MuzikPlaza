@@ -18,7 +18,7 @@ const Layout = ({ children }: Props) => {
       <div className="container mx-auto">{/* Search Bar */}</div>
       <div
         className={clsx(
-          "mx-auto py-10 flex-1 transition-opacity duration-300",
+          "mx-auto lg:mx-72 md:mx-72 py-10 flex-1 transition-opacity duration-300",
           {
             "opacity-0 pointer-events-none": isSideMenuOpen,
           }

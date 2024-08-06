@@ -62,3 +62,44 @@ export const signOut = async () => {
     throw new Error("Error Signing Out");
   }
 };
+
+// Call fetch Genres API
+export const getGenres = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/admin-products/genre`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Unable to fetch genres");
+  }
+
+  return response.json();
+};
+
+// Call fetch Artists API
+export const getArtists = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/admin-products/artist`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Unable to fetch Artists");
+  }
+
+  return response.json();
+};
+
+// Call Add Product API
+export const addProduct = async (productFormData: FormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/admin-products`, {
+    method: "POST",
+    credentials: "include",
+    body: productFormData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add hotel");
+  }
+
+  return response.json();
+};
